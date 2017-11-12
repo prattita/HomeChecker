@@ -3,18 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 #import plotly
 
-
-
 app = Flask(__name__, static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DASP_DATABASE_URI']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
-@app.route('/')
-@app.route('/home')#?
-def show_homepage():
-    return render_template('home.html')
 
 ##TABLES
 class LightEvent(db.Model):
@@ -39,6 +32,23 @@ class TemperatureEvent(db.Model):
     def __repr__(self):
         return "TemperatureEvent(name={}, id={}, timestamp={}, temp_level={})".format(
             self.name, self.id, self.timestamp, self.temp_level)
+
+
+@app.route('/')
+@app.route('/home')#?
+def show_homepage():
+    light_statuses = {}
+    temp_statuses = {}
+
+    query1 = db.session.query(LightEvent.name.distinct().label("name"))
+    for row in query1.all():
+        light_statuses[row.name] = is_light_on(row.name)
+
+    query2 = db.session.query(TemperatureEvent.name.distinct().label("name"))
+    for row in query2.all():
+        temp_statuses[row.name] = current_temp(row.name)
+
+    return render_template('home.html',light_sensors=light_statuses,temp_sensors=temp_statuses)
 
 
 def make_tables():
@@ -83,6 +93,15 @@ def get_temp_event():
     db.session.add(t)
     db.commit()
     return "OK", 200
+
+def is_light_on(light_name):
+    current_light = LightEvent.query.filter_by(name=light_name).first()
+    if current_light.light_level > 30:
+        return "ON"
+    return "OFF"
+
+def current_temp(temp_name):
+    return TemperatureEvent.query.filter_by(name=temp_name).first()
 
 
 @app.route('/light/<string:name>')

@@ -12,7 +12,10 @@
     </header>
 
     <section id="Appliances">
-        <!--List of appliances?-->
+        {% for light, value in light_sensors.items() %}
+            <div class=flash>{{ light }}</div>
+            <div class=flash>{{ value }}</div>
+        {% endfor %}
     </section>
 
 
