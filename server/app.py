@@ -1,5 +1,5 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy, render_template
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 
