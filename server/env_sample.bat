@@ -1,0 +1,2 @@
+@echo OFF
+set DASP_DATABASE_URI=""
