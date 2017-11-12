@@ -6,11 +6,11 @@ import datetime
 
 def main_loop(port):
     while True:
-        # try:
         with serial.Serial(port, 19200, timeout=30) as ser:
             ser.flushInput()
             while True:
                 ping(ser.readline().decode("ascii").rstrip('\r\n'))
+        print("closed for some reason")
 
 
 def ping(raw):
