@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-##TABLES
+# TABLES
 class LightEvent(db.Model):
     __tablename__ = 'lightEvents'
     name = db.Column(db.String(20), nullable=False)
@@ -94,11 +94,13 @@ def get_temp_event():
     db.commit()
     return "OK", 200
 
+
 def is_light_on(light_name):
     current_light = LightEvent.query.filter_by(name=light_name).first()
     if current_light.light_level > 30:
         return "ON"
     return "OFF"
+
 
 def current_temp(temp_name):
     return TemperatureEvent.query.filter_by(name=temp_name).first()
@@ -106,6 +108,7 @@ def current_temp(temp_name):
 
 @app.route('/light/<string:name>')
 def show_light_info(name):
+    # url={{url_for('show_light_info', name=name)}}
     pass
 
 
