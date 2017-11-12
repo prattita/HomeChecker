@@ -26,9 +26,7 @@ Home
 {% for light_name, curr_status in light_sensors.items() %}
     <div class="row">
         <div class="col-xs-6 float-left">
-            {{light_name}}:
-        </div>
-        <div class="col-xs-6 float-left">
+            {{light_name}}: 
             <a href="{{ url_for('show_light_info', light_name=light_name)}}">
                 {{curr_status}}
 {% if curr_status == 'ON' %}
@@ -43,9 +41,7 @@ Home
 {% for temp_name, curr_temp in temp_sensors.items() %}
     <div class="row">
         <div class="col-xs-6 float-left">
-            {{temp_name}}:
-        </div>
-        <div class="col-xs-6 float-left">
+            {{temp_name}}: 
             <a href="{{ url_for('show_temp_info', temp_name=temp_name)}}">
                 {{curr_temp}} °F
             </a>
