@@ -8,6 +8,11 @@
 <body>
     <h1>{{light_name}}</h1>
     <h2>{{current_status}}</h2>
+{% if curr_status == 'ON' %}
+                <img src="{{url_for('static', filename='images/light-bulb-ON.png')}}" width="50" alt="ON"/>
+{% else %}
+                <img src="{{url_for('static', filename='images/light-bulb-OFF.png')}}" width="50" alt="OFF"/>
+{% endif %}
     <div>
         {% for id in ids %}
         <h3>{{id}}</h3>
