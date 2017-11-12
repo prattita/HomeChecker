@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
+#import plotly
+
 
 
 app = Flask(__name__, static_url_path='')
@@ -10,8 +12,9 @@ db = SQLAlchemy(app)
 
 
 @app.route('/')
+@app.route('/home')#?
 def show_homepage():
-    return render_template('index.html')
+    return render_template('home.html')
 
 ##TABLES
 class LightEvent(db.Model):
@@ -87,6 +90,9 @@ def get_temp_event():
     db.session.add(t)
     db.commit()
     return "OK", 200
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
