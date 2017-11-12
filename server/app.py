@@ -36,11 +36,9 @@ class TemperatureEvent(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False)
     temp_level = db.Column(db.Integer)
 
-    def __init__(self, name, id, timestamp, temp_level):
-        self.name = name
-        self.id = id
-        self.timestamp = timestamp
-        self.temp_level = temp_level
+    def __repr__(self):
+        return "TemperatureEvent(name={}, id={}, timestamp={}, temp_level={})".format(
+            self.name, self.id, self.timestamp, self.temp_level)
 
 
 def make_tables():
@@ -54,8 +52,7 @@ def get_light_event():
     body = request.get_json()
     """example body:
     {
-        'name': "SensorL1"
-        'id': 123,
+        'name': "SensorL1",
         'timestamp': <some DateTime thing>,
         'light_level': 255,
     }
@@ -74,22 +71,18 @@ def get_temp_event():
     body = request.get_json()
     """example body:
     {
-        'name': "SensorL1"
-        'id': 123,
+        'name': "SensorL1",
         'timestamp': <some DateTime thing>,
         'temp_level': 255,
     }
     """
     name = body['name']
-    id = body['id']
     timestamp = body['timestamp']
     temp_level = body['temp_level']
-    t = TemperatureEvent(name=name, id=id, timestamp=timestamp, temp_level=temp_level)
+    t = TemperatureEvent(name=name, timestamp=timestamp, temp_level=temp_level)
     db.session.add(t)
     db.commit()
     return "OK", 200
-
-
 
 
 if __name__ == '__main__':
