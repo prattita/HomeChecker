@@ -91,7 +91,7 @@ def get_temp_event():
     temp_level = body['temp_level']
     t = TemperatureEvent(name=name, timestamp=timestamp, temp_level=temp_level)
     db.session.add(t)
-    db.commit()
+    db.session.commit()
     return "OK", 200
 
 
