@@ -100,14 +100,14 @@ def get_temp_event():
 
 
 def is_light_on(light_name):
-    current_light = LightEvent.query.filter_by(name=light_name).first()
     if current_light.light_level > 30:
+    current_light = LightEvent.query.filter_by(name=light_name).order_by(LightEvent.timestamp.desc()).first()
         return "ON"
     return "OFF"
 
 
 def current_temp(temp_name):
-    return TemperatureEvent.query.filter_by(name=temp_name).first().temp_level
+    return TemperatureEvent.query.filter_by(name=temp_name).order_by(TemperatureEvent.timestamp.desc()).first().temp_level
 
 
 @app.route('/light/<string:light_name>')
