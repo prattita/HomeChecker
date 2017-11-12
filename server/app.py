@@ -85,5 +85,10 @@ def get_temp_event():
     return "OK", 200
 
 
+@app.route('/light/<string:name>')
+def show_light_info(name):
+    pass
+
+
 if __name__ == '__main__':
     app.run(debug=True)
