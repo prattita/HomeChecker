@@ -8,8 +8,9 @@ def main_loop(port):
     temp_in_F = 65
     name = 'fake_temp_sensor' + str(randint(0, 5))
     while True:
-        if random() < 0.1:
-            temp_in_F += -1 if random() < 0.5 else 1
+        temp_in_F += .05 * (random() - .5)  # add some jitter
+        if random() < 0.3:  # sometimes, move temp more
+            temp_in_F += -random() if random() < 0.5 else random()
             temp_in_F = min(temp_in_F, 95)
             temp_in_F = max(temp_in_F, -10)
         ping(name, temp_in_F)
