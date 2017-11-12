@@ -1,29 +1,20 @@
-#include <CurieBLE.h>
-
 const int LIGHT_SENSOR_PIN = A0;
-const String NAME = "demoPi";
+const String NAME = "light1";
 
 void setup() {
   pinMode(LIGHT_SENSOR_PIN, INPUT);
-  Serial.begin(9600);
+  Serial.begin(19200);
 }
 
 void loop() {
+  int start = millis();
   Serial.print("[{\"sensor\": \"");
   Serial.print(NAME);
   Serial.print("\", \"light_level\": ");
-  Serial.print(getAvgLightLevel(1000));
+  Serial.print(analogRead(LIGHT_SENSOR_PIN));
   Serial.println("}]");
-//  Serial.println(millis());
-}
-
-int getAvgLightLevel(int duration) {
-  unsigned long int sum;
-  int del = duration / 30;
-  for (int i=0; i<30; i++) {
-    sum += analogRead(LIGHT_SENSOR_PIN);
-    delay(del);
+  Serial.flush();
+  while( millis() < start + 1000 ) {
+    // wait until done
   }
-  return sum / 30;
 }
-
