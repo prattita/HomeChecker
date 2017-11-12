@@ -25,10 +25,10 @@ Home
 <div class="container">
 {% for light_name, curr_status in light_sensors.items() %}
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-6 float-left">
             {{light_name}}:
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-6 float-left">
             <a href={{ url_for('show_light_info', light_name=light_name)}}>
                 {{curr_status}}
 {% if curr_status == 'ON' %}
