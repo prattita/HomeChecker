@@ -1,11 +1,12 @@
-from flask import Flask
+from flask import *
 
 app = Flask(__name__, static_url_path='')
 
 
 @app.route('/')
 def show_homepage():
-    return "wow"
+    return render_template('index.html')
+
 
 
 if __name__ == "__main__":
