@@ -25,11 +25,11 @@ Home
 <div class="container">
 {% for light_name, curr_status in light_sensors.items() %}
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-6 float-left">
             {{light_name}}:
         </div>
-        <div class="col-xs-6">
-            <a href={{ url_for('show_light_info', light_name=light_name)}}>
+        <div class="col-xs-6 float-left">
+            <a href="{{ url_for('show_light_info', light_name=light_name)}}">
                 {{curr_status}}
 {% if curr_status == 'ON' %}
                 <img src="{{url_for('static', filename='images/light-bulb-ON.png')}}" width="50" alt="ON"/>
@@ -40,14 +40,21 @@ Home
         </div>
     </div>
 {% endfor %}
+{% for temp_name, curr_temp in temp_sensors.items() %}
+    <div class="row">
+        <div class="col-xs-6 float-left">
+            {{temp_name}}:
+        </div>
+        <div class="col-xs-6 float-left">
+            <a href="{{ url_for('show_temp_info', temp_name=temp_name)}}">
+                {{curr_temp}} °F
+            </a>
+        </div>
+    </div>
+{% endfor %}
 </div>
 
-    <section id="Appliances">
-        {% for light_name, curr_status in light_sensors.items() %}
-            <a href={{ url_for('show_light_info', light_name=light_name)}}>{{ light_name +" "+ curr_status }}</a>
-        {% endfor %}
-    </section>
+
+<!-- (Light bulb icon: Idea by Ilsur Aptukov from the Noun Project) -->
 
 {% endblock %}
-
-(attribution: Idea by Ilsur Aptukov from the Noun Project)
