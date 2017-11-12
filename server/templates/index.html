@@ -1,15 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+{% extends "bootstrap/base.html" %}
 
-    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='/CSS/style.css') }}" >
-</head>
-<body>
-    <header class="Headers">
-        <h2>HomeChecker</h2>
-    </header>
+{% block metas %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+  <h1>HomeChecker</h1>
+  <p>Some sub-header stuff goes here.</p> 
+</div>
+
+
+<div class="container">
+{% for light_name, curr_status in light_sensors.items() %}
+    <div class="row">
+        <div class="col-xs-6">
+            {{light_name}}:
+        </div>
+        <div class="col-xs-6">
+            <a href={{ url_for('show_light_info', light_name=light_name)}}>
+                {{curr_status}}
+{% if curr_status == 'ON' %}
+                <img src="{{url_for('static', filename='images/light-bulb-ON.png')}}" width="50" alt="ON"/>
+{% else %}
+                <img src="{{url_for('static', filename='images/light-bulb-OFF.png')}}" width="50" alt="OFF"/>
+{% endif %}
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>
 
     <section id="Appliances">
         {% for light_name, curr_status in light_sensors.items() %}
@@ -17,11 +48,6 @@
         {% endfor %}
     </section>
 
+{% endblock %}
 
-    <footer>
-        <!--Contact info-->
-    </footer>
-
-
-</body>
-</html>
+(attribution: Idea by Ilsur Aptukov from the Noun Project)
