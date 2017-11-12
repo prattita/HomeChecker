@@ -118,13 +118,6 @@ def show_light_info(light_name):
     current_lights = LightEvent.query.filter_by(name=light_name).all()
     x = [row.timestamp for row in current_lights]
     y = [row.light_level for row in current_lights]
-    #
-    # for row in current_lights:
-    #      x.append(row.timestamp)
-    #      y.append(row.light_level)
-    # print(x)
-    # print(y)
-
 
     graphs = [{
         'data': [
