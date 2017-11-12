@@ -127,7 +127,7 @@ def show_light_info(light_name):
                 'type': 'scatter',
             }
         ],
-        'layout': {'title': 'some title'},
+        'layout': {'title': 'Light Sensor: Last 7 Days'},
     }]
 
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
@@ -156,7 +156,7 @@ def show_temp_info(temp_name):
                 'type': 'scatter',
             }
         ],
-        'layout': {'title': 'Temperature: Last 7 Days'},
+        'layout': {'title': 'Temperature Sensor: Last 7 Days'},
     }]
 
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
