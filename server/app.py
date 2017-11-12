@@ -106,10 +106,16 @@ def current_temp(temp_name):
     return TemperatureEvent.query.filter_by(name=temp_name).first()
 
 
-@app.route('/light/<string:name>')
-def show_light_info(name):
-    # url={{url_for('show_light_info', name=name)}}
-    pass
+@app.route('/light/<string:light_name>/<string:curr_status>')
+def show_light_info(light_name, curr_status):
+
+
+
+    return render_template('light_sen.html',light_name=light_name,curr_status=curr_status)
+
+#@temp
+
+
 
 
 if __name__ == '__main__':
