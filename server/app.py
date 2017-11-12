@@ -35,7 +35,6 @@ class TemperatureEvent(db.Model):
 
 
 @app.route('/')
-@app.route('/home')#?
 def show_homepage():
     light_statuses = {}
     temp_statuses = {}
@@ -48,7 +47,9 @@ def show_homepage():
     for row in query2.all():
         temp_statuses[row.name] = current_temp(row.name)
 
-    return render_template('home.html',light_sensors=light_statuses,temp_sensors=temp_statuses)
+    return render_template('index.html',
+                           light_sensors=light_statuses,
+                           temp_sensors=temp_statuses)
 
 
 def make_tables():
