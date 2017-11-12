@@ -100,8 +100,8 @@ def get_temp_event():
 
 
 def is_light_on(light_name):
-    if current_light.light_level > 30:
     current_light = LightEvent.query.filter_by(name=light_name).order_by(LightEvent.timestamp.desc()).first()
+    if current_light.light_level > 100:
         return "ON"
     return "OFF"
 
