@@ -12,9 +12,8 @@
     </header>
 
     <section id="Appliances">
-        {% for light, value in light_sensors.items() %}
-            <div class=flash>{{ light }}</div>
-            <div class=flash>{{ value }}</div>
+        {% for light_name, curr_status in light_sensors.items() %}
+            <a href={{ url_for('show_light_info', name=light_name, status=curr_status)}}>{{ light_name +" "+ curr_status }}</a>
         {% endfor %}
     </section>
 
