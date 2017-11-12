@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+# from sqlalchemy.sql import func
 import os
 from flask_bootstrap import Bootstrap
 import plotly
@@ -118,6 +119,10 @@ def show_light_info(light_name):
     current_lights = LightEvent.query.filter_by(name=light_name).all()
     x = [row.timestamp for row in current_lights]
     y = [row.light_level for row in current_lights]
+    # max_l = session.query(func.max(LightEvent.light_level))
+    # max_l = LightEvent.query.filter_by(name=light_name).max(LightEvent.light_level)
+    # min_l = LightEvent.query.filter_by(name=light_name).min(LightEvent.light_level)
+    # avg_l = LightEvent.query.filter_by(name=light_name).avg(LightEvent.light_level)
 
     graphs = [{
         'data': [
@@ -137,6 +142,9 @@ def show_light_info(light_name):
                            light_name=light_name,
                            current_status=current_status,
                            ids=ids,
+                           # max=max_l,
+                           # min=min_l,
+                           # avg=avg_l,
                            graphJSON=graphJSON)
 
 
@@ -147,6 +155,8 @@ def show_temp_info(temp_name):
     current_temps = TemperatureEvent.query.filter_by(name=temp_name).all()
     x = [row.timestamp for row in current_temps]
     y = [row.temp_level for row in current_temps]
+
+    # avg = func.avg(TemperatureEvent.temp_level)
 
     graphs = [{
         'data': [
@@ -165,6 +175,7 @@ def show_temp_info(temp_name):
     return render_template('temp_sen.html',
                            temp_name=c_temp_name,
                            temp_now=temp_now,
+                           # average=avg,
                            ids=ids,
                            graphJSON=graphJSON)
 
