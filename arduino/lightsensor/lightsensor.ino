@@ -9,10 +9,11 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("Sensor: ");
+  Serial.print("[{\"sensor\": \"");
   Serial.print(NAME);
-  Serial.print(" Light level: ");
-  Serial.println(getAvgLightLevel(1000));
+  Serial.print("\", \"light_level\": ");
+  Serial.print(getAvgLightLevel(1000));
+  Serial.println("}]");
 //  Serial.println(millis());
 }
 
