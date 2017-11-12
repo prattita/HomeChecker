@@ -24,13 +24,10 @@ class LightEvent(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False)
     light_level = db.Column(db.Integer)
 
-    # def __repr__(self):
-    # 	return "<Book(title='%s', author=%s)" % (self.title, self.author)
-    def __init__(self, name, id, timestamp, light_level):
-        self.name = name
-        self.id = id
-        self.timestamp = timestamp
-        self.light_level = light_level
+    def __repr__(self):
+        return "LightEvent(name={}, id={}, timestamp={}, light_level={})".format(
+            self.name, self.id, self.timestamp, self.light_level)
+
 
 class TemperatureEvent(db.Model):
     __tablename__ = 'temperatureEvent'
@@ -45,6 +42,7 @@ class TemperatureEvent(db.Model):
         self.timestamp = timestamp
         self.temp_level = temp_level
 
+
 def make_tables():
     db.drop_all()
     db.create_all()
@@ -56,30 +54,30 @@ def get_light_event():
     body = request.get_json()
     """example body:
     {
-    	'name': "SensorL1"
-    	'id': 123,
-    	'timestamp': <some DateTime thing>,
-    	'light_level': 255,
+        'name': "SensorL1"
+        'id': 123,
+        'timestamp': <some DateTime thing>,
+        'light_level': 255,
     }
     """
     name = body['name']
-    id = body['id']
     timestamp = body['timestamp']
     light_level = body['light_level']
-    l = LightEvent(name=name, id=id, timestamp=timestamp, light_level=light_level)
-    db.session.add(l)
-    db.commit()
+    le = LightEvent(name=name, timestamp=timestamp, light_level=light_level)
+    db.session.add(le)
+    db.session.commit()
     return "OK", 200
+
 
 @app.route("/api/temp", methods=['POST'])
 def get_temp_event():
     body = request.get_json()
     """example body:
     {
-    	'name': "SensorL1"
-    	'id': 123,
-    	'timestamp': <some DateTime thing>,
-    	'temp_level': 255,
+        'name': "SensorL1"
+        'id': 123,
+        'timestamp': <some DateTime thing>,
+        'temp_level': 255,
     }
     """
     name = body['name']
