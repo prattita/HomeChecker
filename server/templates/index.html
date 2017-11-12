@@ -42,12 +42,7 @@ Home
 {% endfor %}
 </div>
 
-    <section id="Appliances">
-        {% for light_name, curr_status in light_sensors.items() %}
-            <a href={{ url_for('show_light_info', light_name=light_name)}}>{{ light_name +" "+ curr_status }}</a>
-        {% endfor %}
-    </section>
+
+<!-- (Light bulb icon: Idea by Ilsur Aptukov from the Noun Project) -->
 
 {% endblock %}
-
-(attribution: Idea by Ilsur Aptukov from the Noun Project)
