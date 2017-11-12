@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 @app.route('/')
 def show_homepage():
     return render_template("main.html", light=True)
+    # return render_template("main.html", light=True)
 
 
 class LightEvent(db.Model):
