@@ -107,7 +107,7 @@ def is_light_on(light_name):
 
 
 def current_temp(temp_name):
-    return TemperatureEvent.query.filter_by(name=temp_name).first()
+    return TemperatureEvent.query.filter_by(name=temp_name).first().temp_level
 
 
 @app.route('/light/<string:light_name>')
@@ -118,13 +118,6 @@ def show_light_info(light_name):
     current_lights = LightEvent.query.filter_by(name=light_name).all()
     x = [row.timestamp for row in current_lights]
     y = [row.light_level for row in current_lights]
-    #
-    # for row in current_lights:
-    #      x.append(row.timestamp)
-    #      y.append(row.light_level)
-    # print(x)
-    # print(y)
-
 
     graphs = [{
         'data': [
@@ -140,16 +133,40 @@ def show_light_info(light_name):
     ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
-
     return render_template('light_sen.html',
                            light_name=light_name,
                            current_status=current_status,
                            ids=ids,
                            graphJSON=graphJSON)
 
-#@temperature
 
+@app.route('/temp/<string:temp_name>')
+def show_temp_info(temp_name):
+    c_temp_name = TemperatureEvent.query.filter_by(name=temp_name).first().name
+    temp_now = current_temp(c_temp_name)
+    current_temps = TemperatureEvent.query.filter_by(name=temp_name).all()
+    x = [row.timestamp for row in current_temps]
+    y = [row.temp_level for row in current_temps]
 
+    graphs = [{
+        'data': [
+            {
+                'x': x,
+                'y': y,
+                'type': 'scatter',
+            }
+        ],
+        'layout': {'title': 'Temperature: Last 7 Days'},
+    }]
+
+    ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
+    graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('temp_sen.html',
+                           temp_name=c_temp_name,
+                           temp_now=temp_now,
+                           ids=ids,
+                           graphJSON=graphJSON)
 
 
 if __name__ == '__main__':
