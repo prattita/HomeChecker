@@ -9,12 +9,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-
 @app.route('/')
 def show_homepage():
-    pass
-    #return render_template('index.html')
-    # return render_template("main.html", light=True)
+    return render_template('index.html')
 
 
 class LightEvent(db.Model):
