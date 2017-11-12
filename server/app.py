@@ -108,11 +108,14 @@ def current_temp(temp_name):
 
 @app.route('/light/<string:light_name>')
 def show_light_info(light_name):
-    current_onon
     current_light = LightEvent.query.filter_by(name=light_name).first()
+    current_status = is_light_on(current_light.name)
 
 
-    return render_template('light_sen.html',light_name=light_name, current_light=current_light)
+
+
+
+    return render_template('light_sen.html',light_name=light_name, current_status=current_status)
 
 #@temperature
 
