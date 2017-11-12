@@ -2,7 +2,8 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_bootstrap import Bootstrap
-#import plotly
+import plotly
+import json
 
 app = Flask(__name__, static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DASP_DATABASE_URI']
@@ -113,12 +114,38 @@ def current_temp(temp_name):
 def show_light_info(light_name):
     current_light = LightEvent.query.filter_by(name=light_name).first()
     current_status = is_light_on(current_light.name)
+    #current_lights = db.session.query(LightEvent).filter_by(LightEvent.name.in_((1, 2, 3, 5))).all()
+    current_lights = LightEvent.query.filter_by(name=light_name).all()
+    x = [row.timestamp for row in current_lights]
+    y = [row.light_level for row in current_lights]
+    #
+    # for row in current_lights:
+    #      x.append(row.timestamp)
+    #      y.append(row.light_level)
+    # print(x)
+    # print(y)
 
 
+    graphs = [{
+        'data': [
+            {
+                'x': x,
+                'y': y,
+                'type': 'scatter',
+            }
+        ],
+        'layout': {'title': 'some title'},
+    }]
+
+    ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
+    graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
 
-
-    return render_template('light_sen.html',light_name=light_name, current_status=current_status)
+    return render_template('light_sen.html',
+                           light_name=light_name,
+                           current_status=current_status,
+                           ids=ids,
+                           graphJSON=graphJSON)
 
 #@temperature
 
