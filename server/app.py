@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -29,6 +29,21 @@ def make_tables():
     db.create_all()
     db.session.commit()
 
+
+@app.route("/api/light", methods=['POST'])
+def get_light_event():
+    body = request.get_json()
+    """example body:
+    {
+    	'id': 123,
+    	'timestamp': <some DateTime thing>,
+    	'light_level': 255,
+    }
+    """
+    # pi = Pi(name=body['name'], url=body['url'])
+    # db.session.merge(pi)
+    # db.session.commit()
+    # return "OK", 200
 
 if __name__ == '__main__':
     app.run(debug=True)
