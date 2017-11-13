@@ -1,5 +1,5 @@
 const int LIGHT_SENSOR_PIN = A0;
-const String NAME = "light1";
+const String NAME = "light sensor 2";
 
 void setup() {
   pinMode(LIGHT_SENSOR_PIN, INPUT);
