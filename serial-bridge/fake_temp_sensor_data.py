@@ -24,7 +24,7 @@ def ping(name, value):
             'timestamp': datetime.datetime.now().isoformat(),
             'temp_level': value,
         }
-        r = requests.post('http://localhost:5000/api/temp', json=post)
+        r = requests.post('http://cc19d3ed.ngrok.io/api/temp', json=post)
         print("sent message: {}".format(post))
     except requests.exceptions.ConnectionError as e:
         print("couldn't connect (ignoring)")

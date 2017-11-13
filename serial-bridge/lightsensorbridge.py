@@ -21,7 +21,7 @@ def ping(raw):
             'timestamp': datetime.datetime.now().isoformat(),
             'light_level': data['light_level']
         }
-        r = requests.post('http://localhost:5000/api/light', json=post)
+        r = requests.post('http://cc19d3ed.ngrok.io/api/light', json=post)
         print("sent message: {}".format(data))
     except json.JSONDecodeError as e:
         # maybe we started reading in the middle of a line
@@ -31,4 +31,4 @@ def ping(raw):
 
 
 if __name__ == '__main__':
-    main_loop('COM6')
+    main_loop('COM5')
